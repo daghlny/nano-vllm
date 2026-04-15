@@ -43,6 +43,7 @@ class BlockManager:
     def _allocate_block(self, block_id: int) -> Block:
         block = self.blocks[block_id]
         assert block.ref_count == 0
+        self.hash_to_block_id.pop(block.hash, -1)
         block.reset()
         self.free_block_ids.remove(block_id)
         self.used_block_ids.add(block_id)
